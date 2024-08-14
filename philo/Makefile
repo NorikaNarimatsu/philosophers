@@ -6,7 +6,7 @@
 #    By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/14 13:08:54 by nnarimat          #+#    #+#              #
-#    Updated: 2024/08/14 13:17:42 by nnarimat         ###   ########.fr        #
+#    Updated: 2024/08/14 15:45:40 by nnarimat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 SRC_DIR = src
 OBJ_DIR = obj
-SOURCES = $(SRC_DIR)/main.c
+SOURCES = $(SRC_DIR)/main.c $(SRC_DIR)/input.c  $(SRC_DIR)/libft.c
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
@@ -29,10 +29,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 clean:
 	rm -f $(OBJECTS)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	rm -f $(NAME)
-	rm -rf $(OBJ_DIR)
 
 re: fclean all
 
