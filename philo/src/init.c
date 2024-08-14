@@ -28,10 +28,10 @@ static int	ft_init_philo(t_data *data)
 {
 	int	i;
 
-	data->philosophers = calloc(data->num_philo, sizeof(t_philo));
+	data->philosophers = calloc(data->num_philo, sizeof(t_philo)); // ft_calloc
 	if (data->philosophers == NULL)
 		return (printf("Failed to allocate memory for philosophers\n"), 1);
-	data->forks = calloc(data->num_philo, sizeof(pthread_mutex_t));
+	data->forks = calloc(data->num_philo, sizeof(pthread_mutex_t)); //ft_calloc
 	if (data->forks == NULL)
 		return (printf("Failed to allocate memory for forks\n"), 1);
 	i = 0;
@@ -43,7 +43,7 @@ static int	ft_init_philo(t_data *data)
 	i = 0;
 	while (i < data->num_philo)
 	{
-		data->philosophers[i].index = i;
+		data->philosophers[i].index = i; // make sure in thep final print, it is + 1
 		data->philosophers[i].left_fork = &data->forks[i];
 		data->philosophers[i].right_fork = &data->forks[(i + 1) % data->num_philo];
 		data->philosophers[i].meal_count = 0;
