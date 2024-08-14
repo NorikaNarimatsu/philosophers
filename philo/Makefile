@@ -15,7 +15,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 SRC_DIR = src
 OBJ_DIR = obj
-SOURCES = $(SRC_DIR)/main.c $(SRC_DIR)/input.c  $(SRC_DIR)/libft.c
+SOURCES = $(SRC_DIR)/main.c $(SRC_DIR)/input.c  $(SRC_DIR)/libft.c  $(SRC_DIR)/init.c
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
