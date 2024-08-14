@@ -26,31 +26,42 @@ static int	is_valid_num(char *arg)
 	return (0);
 }
 
-static void	print_error_message(int i)
+int	print_error_message(int i, int error)
 {
+	if (error == 1)
+		return (printf("Integer Overflow Detected\n"), 1);
 	if (i == 1)
-		printf("Invalid Number of Philosophers\n");
+		return (printf("Invalid Number of Philosophers\n"), 1);
 	else if (i == 2)
-		printf("Invalid Time to Die\n");
+		return (printf("Invalid Time to Die\n"), 1);
 	else if (i == 3)
-		printf("Invalid Time to Eat\n");
+		return (printf("Invalid Time to Eat\n"), 1);
 	else if (i == 4)
-		printf("Invalid Time to Sleep\n");
+		return (printf("Invalid Time to Sleep\n"), 1);
 	else if (i == 5)
-		printf("Invalid Number of Meals\n");
+		return (printf("Invalid Number of Meals\n"), 1);
+	return (0);
 }
 
 int	ft_input_check(char **argv)
 {
-	if (is_valid_num(argv[1]) == -1 || ft_atoi(argv[1]) <= 0)
-		return (print_error_message(1), -1);
-	if (is_valid_num(argv[2]) == -1 ||ft_atoi(argv[2]) <= 0)
-		return (print_error_message(2), -1);
-	if (is_valid_num(argv[3]) == -1 ||ft_atoi(argv[3]) <= 0)
-		return (print_error_message(3), -1);
-	if (is_valid_num(argv[4]) == -1 ||ft_atoi(argv[4]) <= 0)
-		return (print_error_message(4), -1);
-	if (argv[5] && (is_valid_num(argv[1]) == -1 || ft_atoi(argv[5]) < 0))
-		return (print_error_message(5), -1);
+	int error;
+
+	error = 0;
+	if (is_valid_num(argv[1]) == -1 || 
+		ft_atoi_philo(argv[1], &error) <= 0 || error)
+		return (print_error_message(1, error), -1);
+	if (is_valid_num(argv[2]) == -1 || 
+		ft_atoi_philo(argv[2], &error) <= 0 || error)
+		return (print_error_message(2, error), -1);
+	if (is_valid_num(argv[3]) == -1 || 
+		ft_atoi_philo(argv[3], &error) <= 0 || error)
+		return (print_error_message(3, error), -1);
+	if (is_valid_num(argv[4]) == -1 || 
+		ft_atoi_philo(argv[4], &error) <= 0 || error)
+		return (print_error_message(4, error), -1);
+	if (argv[5] && (is_valid_num(argv[5]) == -1 || 
+		ft_atoi_philo(argv[5], &error) < 0 || error))
+		return (print_error_message(5, error), -1);
 	return (0);
 }

@@ -12,7 +12,7 @@
 
 #include "../inc/philosophers.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(char *s)
 {
 	size_t	count;
 
@@ -35,27 +35,23 @@ void	ft_putstr_fd(char	*s, int fd)
 	write(fd, s, len);
 }
 
-int	ft_atoi(const char	*nptr)
+int	ft_atoi_philo(char *nptr, int *error)
 {
-	int	num;
-	int	sign;
-	int	final;
+	long	num;
 
 	num = 0;
-	sign = 1;
-	while ((*nptr == ' ') || ((*nptr >= '\t') && (*nptr <= '\r' )))
+	*error = 0;
+
+	while ((*nptr == ' ') || ((*nptr >= '\t') && (*nptr <= '\r')))
 		nptr++;
-	if (*nptr == '-' || *nptr == '+')
-	{
-		if (*nptr == '-')
-			sign = -1;
-		nptr++;
-	}
 	while (*nptr >= '0' && *nptr <= '9')
 	{
+		if (num > (LONG_MAX - (*nptr - '0')) / 10)
+			return (*error = 1, 0);
 		num = num * 10 + (*nptr - '0');
 		nptr++;
 	}
-	final = sign * num;
-	return (final);
+	if ((num) < INT_MIN || (num) > INT_MAX)
+		return (*error = 1, 0);
+	return ((int)(num));
 }

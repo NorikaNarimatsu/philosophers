@@ -13,37 +13,41 @@
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-#define INPUT_ERROR "You need to input: \n\t\"./philo [number_of_philosophers] \\\n\t\t[time_to_die] [time_to_eat] [time_to_sleep] \\\n\t\t(number_of_times_each_philosopher_must_eat)\""
-
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <limits.h> 
 #include <pthread.h>
 
-typedef struct s_philo
-{
-	int			index;
-	int			*right;
-	int			*left;
-	pthread_t	philo;
-} t_philo;
+#define INPUT_ERROR "You need to input: \n\t\"./philo [number_of_philosophers] \\\n\t\t[time_to_die] [time_to_eat] [time_to_sleep] \\\n\t\t(number_of_times_each_philosopher_must_eat)\""
 
-typedef struct s_data
+typedef	struct s_philo
 {
-	int			num_philo;
-	int			time_die;
-	int			time_eat;
-	int			time_sleep;
-	int			num_meals;
-	t_philo		*philosophers;
-	int			*forks; // different data type used by one person
-} t_data;
+	int				index;
+	int				*left_fork;
+	int				*right_fork;
+	pthread_t		philo;
+	long long		last_meal_time;
+	int				meal_count;
+	struct s_data	*data;
+}	t_philo;
+
+typedef	struct s_data
+{
+	int				num_philo;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
+	int				num_meals;
+	pthread_mutex_t	*forks;
+	t_philo			*philosophers;
+}	t_data;
 
 
 // libft.c
 void	ft_putstr_fd(char	*s, int fd);
-size_t	ft_strlen(const char *s);
-int		ft_atoi(const char	*nptr);
+size_t	ft_strlen(char *s);
+int	ft_atoi_philo(char *nptr, int *error);
 
 // input.c
 int		ft_input_check(char **argv);
