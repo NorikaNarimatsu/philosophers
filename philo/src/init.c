@@ -12,11 +12,10 @@ void	ft_print_initialization(t_data *data)
 	printf("- Time to Eat: %d ms\n", data->time_eat);
 	printf("- Time to Sleep: %d ms\n", data->time_sleep);
 	printf("- Number of Meals: %d\n\n", data->num_meals);
-
 	i = 0;
 	while (i < data->num_philo)
 	{
-		printf("Philosopher[%d] has L[%p] and R[%p] with MC [%d] and LMT [%lld]\n", 
+		printf("Philosopher[%d] has L[%p] and R[%p] with MC [%d] and LMT [%lu]\n", 
 				data->philosophers[i].index, (void *)data->philosophers[i].left_fork, 
 				(void *)data->philosophers[i].right_fork, data->philosophers[i].meal_count,
 				data->philosophers[i].last_meal_time);

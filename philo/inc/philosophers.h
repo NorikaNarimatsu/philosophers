@@ -30,7 +30,7 @@ typedef	struct s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_t		philo;
-	long long		last_meal_time;
+	size_t		last_meal_time;
 	int				meal_count;
 	struct s_data	*data;
 }	t_philo;
