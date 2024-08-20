@@ -12,7 +12,7 @@
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror -pthread -g
 SRC_DIR = src
 OBJ_DIR = obj
 SOURCES = $(SRC_DIR)/main.c $(SRC_DIR)/input.c  $(SRC_DIR)/libft.c  $(SRC_DIR)/init.c  $(SRC_DIR)/time.c $(SRC_DIR)/routine.c $(SRC_DIR)/death.c

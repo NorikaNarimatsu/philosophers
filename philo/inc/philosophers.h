@@ -47,11 +47,14 @@ typedef	struct s_data
 	long long		start_time;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	death_mutex;
+	pthread_mutex_t print_mutex;
+
 	int				someone_died;
 	t_philo			*philosophers;
 }	t_data;
 
 
+void ft_log_action(t_philo *philo, char *action);
 
 // libft.c
 void	ft_putstr_fd(char	*s, int fd);

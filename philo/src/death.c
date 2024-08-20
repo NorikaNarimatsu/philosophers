@@ -11,32 +11,50 @@
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
+#include <string.h>
 
-void ft_monitor(t_data *data)
+void	ft_log_action(t_philo *philo, char *action)
 {
-	int	i;
-	int	all_ate;
+	pthread_mutex_lock(&philo->data->print_mutex);
+	if (!philo->data->someone_died || strcmp(action, "died") == 0)
+	{
+		printf("%lld %d %s\n",
+			ft_get_current_time(philo->data->start_time),
+			philo->index + 1,
+			action);
+	}
+	pthread_mutex_unlock(&philo->data->print_mutex);
+}
+
+void	ft_monitor(t_data *data)
+{
+	int			i;
+	int			is_meal_done;
+	long long	time_since_last_meal;
 
 	while (1)
 	{
 		i = 0;
-		all_ate = 1;
+		is_meal_done = 1;
 		while (i < data->num_philo)
 		{
 			pthread_mutex_lock(&data->death_mutex);
-			if (ft_time_diff(data->philosophers[i].last_meal_time, ft_timestamp()) > data->time_die)
+			time_since_last_meal = ft_time_diff(data->philosophers[i].last_meal_time, ft_timestamp());
+			if (time_since_last_meal > data->time_die)
 			{
+				printf("true\n");
 				data->someone_died = 1;
-				printf("%lld %d died\n", ft_get_current_time(data->start_time), data->philosophers[i].index + 1);
+				ft_log_action(&data->philosophers[i], "died");
 				pthread_mutex_unlock(&data->death_mutex);
 				return;
 			}
 			if (data->num_meals != -1 && data->philosophers[i].meal_count < data->num_meals)
-				all_ate = 0;
+				is_meal_done = 0;
 			pthread_mutex_unlock(&data->death_mutex);
 			i++;
 		}
-		if (all_ate && data->num_meals != -1)
+
+		if (is_meal_done && data->num_meals != -1)
 		{
 			pthread_mutex_lock(&data->death_mutex);
 			data->someone_died = 100;
@@ -45,5 +63,6 @@ void ft_monitor(t_data *data)
 		}
 		if (data->someone_died)
 			break;
+		usleep(1000);  // Sleep briefly to reduce CPU usage
 	}
 }
