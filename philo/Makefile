@@ -6,7 +6,7 @@
 #    By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/14 13:08:54 by nnarimat          #+#    #+#              #
-#    Updated: 2024/08/14 15:45:40 by nnarimat         ###   ########.fr        #
+#    Updated: 2024/08/20 15:46:06 by nnarimat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 SRC_DIR = src
 OBJ_DIR = obj
-SOURCES = $(SRC_DIR)/main.c $(SRC_DIR)/input.c  $(SRC_DIR)/libft.c  $(SRC_DIR)/init.c
+SOURCES = $(SRC_DIR)/main.c $(SRC_DIR)/input.c  $(SRC_DIR)/libft.c  $(SRC_DIR)/init.c  $(SRC_DIR)/time.c $(SRC_DIR)/routine.c $(SRC_DIR)/death.c
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)

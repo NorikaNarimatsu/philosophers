@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/20 15:15:08 by nnarimat          #+#    #+#             */
+/*   Updated: 2024/08/20 17:08:07 by nnarimat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/philosophers.h"
 
@@ -15,8 +25,8 @@ void	ft_print_initialization(t_data *data)
 	i = 0;
 	while (i < data->num_philo)
 	{
-		printf("Philosopher[%d] has L[%p] and R[%p] with MC [%d] and LMT [%lu]\n", 
-				data->philosophers[i].index, (void *)data->philosophers[i].left_fork, 
+		printf("Philosopher[%d] has L[%p] and R[%p] with MC [%d] and LMT [%llu]\n",
+				data->philosophers[i].index, (void *)data->philosophers[i].left_fork,
 				(void *)data->philosophers[i].right_fork, data->philosophers[i].meal_count,
 				data->philosophers[i].last_meal_time);
 		i++;
@@ -42,11 +52,11 @@ static int	ft_init_philo(t_data *data)
 	i = 0;
 	while (i < data->num_philo)
 	{
-		data->philosophers[i].index = i; // make sure in thep final print, it is + 1
+		data->philosophers[i].index = i;
 		data->philosophers[i].left_fork = &data->forks[i];
 		data->philosophers[i].right_fork = &data->forks[(i + 1) % data->num_philo];
 		data->philosophers[i].meal_count = 0;
-		data->philosophers[i].last_meal_time = 0;
+		data->philosophers[i].last_meal_time = data->start_time;
 		data->philosophers[i].data = data;
 		i++;
 	}
@@ -62,6 +72,8 @@ int	ft_init_data(t_data *data, char **argv)
 	data->time_die = ft_atoi_philo(argv[2], &error);
 	data->time_eat = ft_atoi_philo(argv[3], &error);
 	data->time_sleep = ft_atoi_philo(argv[4], &error);
+	data->start_time = ft_timestamp();
+	data->someone_died = 0;
 	if (argv[5] != NULL)
 		data->num_meals = ft_atoi_philo(argv[5], &error);
 	else
