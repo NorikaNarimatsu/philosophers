@@ -6,7 +6,7 @@
 /*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:15:00 by nnarimat          #+#    #+#             */
-/*   Updated: 2024/08/21 16:26:59 by nnarimat         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:53:20 by nnarimat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ void ft_monitor(t_data *data)
 		while (i < data->num_philo)
 		{
 			pthread_mutex_lock(&data->death_mutex);
+			pthread_mutex_lock(&data->philosophers[i].lastmeal);
 			long long time_since_last_meal = ft_timediff(data->philosophers[i].last_meal_time, ft_timestamp());
+			pthread_mutex_unlock(&data->philosophers[i].lastmeal);
 			if (time_since_last_meal > data->time_die)
 			{
 				data->someone_died = 1;
@@ -55,14 +57,16 @@ void ft_monitor(t_data *data)
 				return;
 			}
 			if (data->num_meals != -1 && data->philosophers[i].meal_count < data->num_meals)
+			{
 				is_meal_done = 0;
+			}
 			pthread_mutex_unlock(&data->death_mutex);
 			i++;
 		}
 		if (is_meal_done && data->num_meals != -1)
 		{
 			pthread_mutex_lock(&data->death_mutex);
-			data->someone_died = 100;
+			data->someone_died = 1;
 			pthread_mutex_unlock(&data->death_mutex);
 			break;
 		}

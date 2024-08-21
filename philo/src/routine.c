@@ -6,7 +6,7 @@
 /*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:19:40 by nnarimat          #+#    #+#             */
-/*   Updated: 2024/08/21 16:43:24 by nnarimat         ###   ########.fr       */
+/*   Updated: 2024/08/21 23:04:03 by nnarimat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ int	ft_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->death_mutex);
 	ft_log_action(philo, "has taken a fork");
 	ft_log_action(philo, "is eating");
+	pthread_mutex_lock(&philo->data->death_mutex);
+	pthread_mutex_lock(&philo->lastmeal);
 	philo->last_meal_time = ft_timestamp();
+	pthread_mutex_unlock(&philo->lastmeal);
+	pthread_mutex_unlock(&philo->data->death_mutex);
 	start_time = ft_timestamp();
 	while (ft_timestamp() - start_time < philo->data->time_eat)
 	{
@@ -93,6 +97,9 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	pthread_mutex_lock(&philo->data->sync);
+	pthread_mutex_unlock(&philo->data->sync);
+	// printf ("%p\n", &philo->last_meal_time);
 	if (philo->meal_count == 0 && philo->index % 2 == 0 && philo->data->num_philo != 1)
 	{
 		ft_think(philo);
@@ -101,7 +108,6 @@ void	*routine(void *arg)
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->death_mutex);
-		// printf("1 NOW DATA->SOMEONE_DIED is %d\n", philo->data->someone_died);
 		if (philo->data->someone_died)
 		{
 			pthread_mutex_unlock(&philo->data->death_mutex);
@@ -111,8 +117,8 @@ void	*routine(void *arg)
 		ft_eat(philo);
 		ft_sleep(philo);
 		ft_think(philo);
-		if (philo->data->num_meals != -1 && philo->meal_count >= philo->data->num_meals)
-			break;
+		// if (philo->data->num_meals != -1 && philo->meal_count >= philo->data->num_meals)
+		// 	break;
 	}
 	return (NULL);
 }

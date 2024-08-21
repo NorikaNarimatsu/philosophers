@@ -6,7 +6,7 @@
 /*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 13:15:40 by nnarimat          #+#    #+#             */
-/*   Updated: 2024/08/21 15:04:24 by nnarimat         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:48:20 by nnarimat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef	struct s_philo
 	int				index;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	lastmeal;
 	pthread_t		philo;
 	long long		last_meal_time;
 	int				meal_count;
@@ -48,6 +49,7 @@ typedef	struct s_data
 	long long		start_time;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	death_mutex;
+	pthread_mutex_t	sync;
 	int				someone_died;
 	t_philo			*philosophers;
 }	t_data;

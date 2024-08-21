@@ -6,7 +6,7 @@
 /*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 14:22:27 by nnarimat          #+#    #+#             */
-/*   Updated: 2024/08/21 16:25:55 by nnarimat         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:41:48 by nnarimat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,17 @@ int	main(int argc, char **argv)
 	if (pthread_mutex_init(&data.death_mutex, NULL) != 0)
 		return (ft_cleanup(&data), ft_putstr_fd(INIT, 1), 1);
 	i = 0;
+	if (pthread_mutex_init(&data.sync, NULL) != 0) //destroy 0x7ffefdb9a9e0
+		return (ft_cleanup(&data), ft_putstr_fd(INIT, 1), 1);
+	pthread_mutex_lock(&data.sync);
 	while (i < data.num_philo)
 	{
 		if (pthread_create(&data.philosophers[i].philo, NULL, &routine, &data.philosophers[i]) != 0)
-			return (ft_cleanup(&data), ft_putstr_fd(THREAD, 1), 1);
+			return (pthread_mutex_unlock(&data.sync), ft_cleanup(&data), ft_putstr_fd(THREAD, 1), 1);
 		i++;
 	}
+	data.start_time = ft_timestamp();
+	pthread_mutex_unlock(&data.sync);
 	ft_monitor(&data);
 	i = 0;
 	while (i < data.num_philo)

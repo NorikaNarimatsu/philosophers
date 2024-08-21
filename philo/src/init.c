@@ -6,7 +6,7 @@
 /*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:15:08 by nnarimat          #+#    #+#             */
-/*   Updated: 2024/08/21 14:46:59 by nnarimat         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:50:59 by nnarimat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static int ft_init_philo(t_data *data)
 		data->philosophers[i].meal_count = 0;
 		data->philosophers[i].last_meal_time = data->start_time;
 		data->philosophers[i].data = data;
+		if (pthread_mutex_init(&data->philosophers[i].lastmeal, NULL) != 0)
+			printf("fix ya shittttt\n"); // you need to clean the mutexes
 		i++;
 	}
 	return 0;
