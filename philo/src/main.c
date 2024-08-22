@@ -6,7 +6,7 @@
 /*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 14:22:27 by nnarimat          #+#    #+#             */
-/*   Updated: 2024/08/22 13:30:39 by nnarimat         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:49:22 by nnarimat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	create_philosopher_threads(t_data *data)
 			&routine, &data->philos[i]) != 0)
 		{
 			pthread_mutex_unlock(&data->sync);
-			return (ft_cleanup(data), ft_putstr_fd(THREAD, 1), 1);
+			return (ft_cleanup(data), ft_putstr_fd(THREAD, 2), 1);
 		}
 		i++;
 	}
@@ -45,9 +45,9 @@ int	main(int argc, char **argv)
 	int		i;
 
 	if (ft_input_check(argc, argv) == -1)
-		return (ft_putstr_fd(INPUT, 1), 1);
+		return (ft_putstr_fd(INPUT, 2), 1);
 	if (ft_init_data(&data, argv))
-		return (ft_cleanup(&data), ft_putstr_fd(INPUT, 1), 1);
+		return (ft_cleanup(&data), ft_putstr_fd(INPUT, 2), 1);
 	if (create_philosopher_threads(&data) != 0)
 		return (1);
 	ft_monitor(&data);
@@ -55,7 +55,7 @@ int	main(int argc, char **argv)
 	while (i < data.num_philo)
 	{
 		if (pthread_join(data.philos[i].philo, NULL) != 0)
-			return (ft_cleanup(&data), ft_putstr_fd(THREAD, 1), 1);
+			return (ft_cleanup(&data), ft_putstr_fd(THREAD, 2), 1);
 		i++;
 	}
 	return (ft_cleanup(&data), 0);

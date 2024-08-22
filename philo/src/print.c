@@ -6,7 +6,7 @@
 /*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:27:32 by nnarimat          #+#    #+#             */
-/*   Updated: 2024/08/22 12:59:06 by nnarimat         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:50:24 by nnarimat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ void	ft_print_action(t_philo *philo, char *action, bool death)
 int	print_error_message(int i, int error)
 {
 	if (error == 1)
-		return (printf("Integer Overflow Detected\n"), 1);
+		return (ft_putstr_fd("Integer Overflow Detected\n", 2), 1);
 	if (i == 1)
-		return (printf("Invalid Number of Philosophers [1 - 200]\n"), 1);
+		return (ft_putstr_fd("Invalid Num of Philosophers [1 - 200]\n", 2), 1);
 	else if (i == 2)
-		return (printf("Invalid Time to Die [60 ms ~ ]\n"), 1);
+		return (ft_putstr_fd("Invalid Time to Die [60 ms ~ ]\n", 2), 1);
 	else if (i == 3)
-		return (printf("Invalid Time to Eat [60 ms ~ ]\n"), 1);
+		return (ft_putstr_fd("Invalid Time to Eat [60 ms ~ ]\n", 2), 1);
 	else if (i == 4)
-		return (printf("Invalid Time to Sleep [60 ms ~ ]\n"), 1);
+		return (ft_putstr_fd("Invalid Time to Sleep [60 ms ~ ]\n", 2), 1);
 	else if (i == 5)
-		return (printf("Invalid Number of Meals [Pptional]]\n"), 1);
+		return (ft_putstr_fd("Invalid Number of Meals [Optional]\n", 2), 1);
 	return (0);
 }
 

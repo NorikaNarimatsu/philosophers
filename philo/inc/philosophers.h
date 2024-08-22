@@ -6,7 +6,7 @@
 /*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 13:15:40 by nnarimat          #+#    #+#             */
-/*   Updated: 2024/08/22 13:35:37 by nnarimat         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:49:52 by nnarimat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@
 
 # define MAXPHILO 200
 # define MINTIME 60
-
 # define INPUT "You need to input: \n\t\"./philo [number_of_philosophers] \
 				\\\n\t\t[time_to_die] [time_to_eat] [time_to_sleep] \\\n\t\t \
 				(number_of_times_each_philosopher_must_eat)\""
 # define INIT "Failed to initialize mutex\n"
 # define THREAD "Failed to create thread or join thread\n"
+# define MEMORY "Failed to allocate memory for forks\n"
+# define NUMBER " : Not a valid number\n"
+# define PHILO_NUM "Number of Philosophers must be between 1 - 200\n"
+# define TIME "Time to Die/Eat/Sleep must be at least 60ms\n"
 
 typedef struct s_philo
 {
@@ -59,7 +62,6 @@ typedef struct s_data
 	t_philo			*philos;
 }	t_data;
 
-
 //input.c
 int			ft_input_range_check(t_data *data);
 int			ft_input_check(int argc, char **argv);
@@ -71,6 +73,7 @@ int			ft_init_data(t_data *data, char **argv);
 void		ft_putstr_fd(char	*s, int fd);
 size_t		ft_strlen(char *s);
 int			ft_atoi_philo(char *nptr, int *error);
+void		*ft_calloc(size_t nmemb, size_t size);
 
 //monitor.c
 void		ft_monitor(t_data *data);

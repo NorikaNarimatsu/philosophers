@@ -6,11 +6,43 @@
 /*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:40:49 by nnarimat          #+#    #+#             */
-/*   Updated: 2024/08/22 12:54:32 by nnarimat         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:38:04 by nnarimat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
+
+static void	ft_bzero(void *s, size_t n)
+{
+	char	*s_char;
+
+	s_char = (char *)s;
+	while (n > 0)
+	{
+		*s_char = '\0';
+		s_char++;
+		n--;
+	}
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*ptr;
+
+	ptr = 0;
+	if (nmemb == 0 || size == 0)
+	{
+		nmemb = 1;
+		size = 1;
+	}
+	else if (((nmemb * size) / size) != nmemb)
+		return (NULL);
+	ptr = malloc(nmemb * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, nmemb * size);
+	return (ptr);
+}
 
 size_t	ft_strlen(char *s)
 {

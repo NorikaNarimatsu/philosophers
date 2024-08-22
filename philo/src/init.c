@@ -6,7 +6,7 @@
 /*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:15:08 by nnarimat          #+#    #+#             */
-/*   Updated: 2024/08/22 13:24:02 by nnarimat         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:48:59 by nnarimat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_init_mutexes(t_data *data, int i)
 	if (pthread_mutex_init(&data->philos[i].lastmeal, NULL) != 0 \
 		|| pthread_mutex_init(&data->philos[i].mealcount, NULL) != 0)
 	{
-		printf("Failed to initialize mutexes for philosopher %d\n", i);
+		ft_putstr_fd(INIT, 2);
 		while (i >= 0)
 		{
 			pthread_mutex_destroy(&data->philos[i].lastmeal);
@@ -33,18 +33,18 @@ static int	ft_init_forks(t_data *data)
 {
 	int	i;
 
-	data->forks = calloc(data->num_philo, sizeof(pthread_mutex_t));
+	data->forks = (data->num_philo, sizeof(pthread_mutex_t));
 	if (data->forks == NULL)
 	{
 		free(data->philos);
-		return (printf("Failed to allocate memory for forks\n"), 1);
+		return (ft_putstr_fd(MEMORY, 2), 2);
 	}
 	i = 0;
 	while (i < data->num_philo)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 		{
-			printf("Failed to initialize mutex for fork %d\n", i);
+			ft_putstr_fd(INIT, 2);
 			while (i >= 0)
 				pthread_mutex_destroy(&data->forks[i--]);
 			free(data->philos);
@@ -60,9 +60,9 @@ static int	ft_init_philo(t_data *data)
 {
 	int	i;
 
-	data->philos = calloc(data->num_philo, sizeof(t_philo));		// FT_CALLOC!
+	data->philos = ft_calloc(data->num_philo, sizeof(t_philo));
 	if (data->philos == NULL)
-		return (printf("Failed to allocate memory for philosophers\n"), 1);	// FD = 2 for all the PRINTF
+		return (ft_putstr_fd(MEMORY, 2), 1);
 	if (ft_init_forks(data) != 0)
 		return (1);
 	i = 0;

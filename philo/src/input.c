@@ -6,7 +6,7 @@
 /*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:40:46 by nnarimat          #+#    #+#             */
-/*   Updated: 2024/08/22 12:54:25 by nnarimat         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:45:09 by nnarimat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	is_valid_num(char *arg)
 	while (arg[i] != '\0')
 	{
 		if (!(arg[i] >= '0' && arg[i] <= '9'))
-			return (printf("[%s] : Not a valid number\n", arg), 0);
+			return (ft_putstr_fd(arg, 2), ft_putstr_fd(NUMBER, 2), 0);
 		i++;
 	}
 	return (1);
@@ -29,10 +29,10 @@ static int	is_valid_num(char *arg)
 int	ft_input_range_check(t_data *data)
 {
 	if (data->num_philo > MAXPHILO || data->num_philo < 1)
-		return (printf("Number of Philosophers must be between 1 - 200\n"), 1);
+		return (ft_putstr_fd(PHILO_NUM, 2), 1);
 	if (data->time_die < MINTIME || data->time_eat < MINTIME \
 		|| data->time_sleep < MINTIME)
-		return (printf("Time to Die/Eat/Sleep must be at least 60ms\n"), 1);
+		return (ft_putstr_fd(TIME, 2), 1);
 	return (0);
 }
 
