@@ -6,7 +6,7 @@
 /*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:15:08 by nnarimat          #+#    #+#             */
-/*   Updated: 2024/08/22 13:48:59 by nnarimat         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:55:32 by nnarimat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_init_forks(t_data *data)
 {
 	int	i;
 
-	data->forks = (data->num_philo, sizeof(pthread_mutex_t));
+	data->forks = ft_calloc(data->num_philo, sizeof(pthread_mutex_t));
 	if (data->forks == NULL)
 	{
 		free(data->philos);
