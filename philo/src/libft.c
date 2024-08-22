@@ -6,7 +6,7 @@
 /*   By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:40:49 by nnarimat          #+#    #+#             */
-/*   Updated: 2024/08/14 15:46:18 by nnarimat         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:54:32 by nnarimat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ft_atoi_philo(char *nptr, int *error)
 
 	num = 0;
 	*error = 0;
-
 	while ((*nptr == ' ') || ((*nptr >= '\t') && (*nptr <= '\r')))
 		nptr++;
 	while (*nptr >= '0' && *nptr <= '9')

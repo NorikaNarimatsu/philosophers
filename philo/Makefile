@@ -6,23 +6,24 @@
 #    By: nnarimat <nnarimat@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/14 13:08:54 by nnarimat          #+#    #+#              #
-#    Updated: 2024/08/21 23:03:30 by nnarimat         ###   ########.fr        #
+#    Updated: 2024/08/22 13:36:17 by nnarimat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g3 #-pthread -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g3
 SRC_DIR = src
 OBJ_DIR = obj
-SOURCES = $(SRC_DIR)/main.c $(SRC_DIR)/input.c  $(SRC_DIR)/libft.c  $(SRC_DIR)/init.c  $(SRC_DIR)/time.c $(SRC_DIR)/routine.c $(SRC_DIR)/death.c
+SOURCES = $(SRC_DIR)/main.c $(SRC_DIR)/input.c  $(SRC_DIR)/libft.c \
+		  $(SRC_DIR)/init.c  $(SRC_DIR)/time.c $(SRC_DIR)/routine.c \
+		  $(SRC_DIR)/monitor.c $(SRC_DIR)/print.c $(SRC_DIR)/clean.c
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) -fsanitize=thread -g3 $(OBJECTS) -o $(NAME)
-
+	$(CC) $(OBJECTS) -o $(NAME)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
